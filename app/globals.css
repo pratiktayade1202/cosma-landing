@@ -1,64 +1,75 @@
 @import "tailwindcss";
 
 @theme {
-  /* --- THE COSMIC PALETTE (Defined for v4) --- */
   --color-obsidian: #050505;
-  --color-off-white: #F2F2F2;
-  --color-stardust: #888888;
-  --color-wireframe: #333333;
-  --color-gold: #D4AF37;
-
-  /* --- FONTS --- */
-  --font-domine: var(--font-domine);
-  --font-inter: var(--font-inter);
+  --color-paper: #F2F2F2;
+  --color-grid: #222;
+  --font-serif: var(--font-domine);
+  --font-sans: var(--font-inter);
 }
 
-/* --- GLOBAL STYLES --- */
 body {
   background-color: var(--color-obsidian);
-  /* Standard CSS avoids @apply errors */
-  color: var(--color-off-white);
-  cursor: none;
-  /* We use the custom cursor */
+  color: var(--color-paper);
+  overflow-x: hidden;
+  font-family: var(--font-sans);
 }
 
-/* --- NOISE OVERLAY --- */
-body::before {
-  content: "";
+/* --- TEXTURES --- */
+.bg-grain {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.04;
   pointer-events: none;
   z-index: 50;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* --- SELECTION COLOR --- */
+/* --- TYPOGRAPHY --- */
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  /* Co-Star uses lighter weights for elegance */
+  letter-spacing: -0.03em;
+}
+
+.label-text {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #666;
+}
+
+/* --- UTILITIES --- */
+.brutalist-border {
+  border-top: 1px solid var(--color-grid);
+}
+
+.brutalist-border-b {
+  border-bottom: 1px solid var(--color-grid);
+}
+
+/* Selection */
 ::selection {
-  background-color: var(--color-gold);
-  color: var(--color-obsidian);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: inherit;
 }
 
-/* --- METEOR ANIMATION --- */
-@keyframes meteor {
-  0% {
-    transform: rotate(215deg) translateX(0);
-    opacity: 1;
-  }
-
-  70% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: rotate(215deg) translateX(-500px);
-    opacity: 0;
-  }
+/* Scrollbar - minimal brutalist */
+::-webkit-scrollbar {
+  width: 2px;
 }
 
-.animate-meteor {
-  animation: meteor 5s linear infinite;
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
 }
